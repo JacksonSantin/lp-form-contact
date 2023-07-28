@@ -15,8 +15,11 @@ function aplicarMascara() {
 
 function sendEmail() {
   Email.send({
-    SecureToken: "4f7da468-6411-494a-862f-a52085bc91fe",
-    To: 'jackdhanyelsn@gmail.com',
+    SecureToken: "YOUR_SECURE_TOKEN_HERE", // to use this, you need have account on site https://elasticemail.com/ and, if you use this, you don't need use the code on the lines 19, 20 and 21
+    // Host : "smtp.elasticemail.com",
+    // Username : "username",
+    // Password : "password",
+    To: 'YOUR_EMAIL_HERE',
     From: document.getElementById("email").value,
     Subject: "New Contact From Enquiry",
     Body:
@@ -25,16 +28,32 @@ function sendEmail() {
       + "<br> Phone: " + document.getElementById("phone").value
       + "<br> Message: " + document.getElementById("message").value
   }).then(
-    Toastify({
-      text: "Message sent succesfully!",
-      duration: 3000,
-      gravity: "top",
-      position: "right",
-      style: {
-        background: "#198754",
-        borderRadius: "50px"
-      },
-      stopOnFocus: true
-    }).showToast()
+    function (message) {
+      if (message === "OK") {
+        Toastify({
+          text: "Message sent succesfully!",
+          duration: 3000,
+          gravity: "top",
+          position: "right",
+          style: {
+            background: "#198754",
+            borderRadius: "50px"
+          },
+          stopOnFocus: true
+        }).showToast()
+      } else {
+        Toastify({
+          text: message,
+          duration: 3000,
+          gravity: "top",
+          position: "right",
+          style: {
+            background: "#ff3333",
+            borderRadius: "50px"
+          },
+          stopOnFocus: true
+        }).showToast()
+      }
+    }
   );
 }
